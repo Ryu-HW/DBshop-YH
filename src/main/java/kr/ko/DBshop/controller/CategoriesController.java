@@ -2,13 +2,14 @@ package kr.ko.DBshop.controller;
 
 
 import kr.ko.DBshop.dto.CategoriesDto;
+import kr.ko.DBshop.dto.PageDto;
 import kr.ko.DBshop.service.CategoriesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Controller
 @RequestMapping("/categories")
@@ -22,10 +23,24 @@ public class CategoriesController {
         return "/categories/form";
     }
 
+    @GetMapping("/list")
+    public String getCategoriesLists(@RequestParam(name ="page", defaultValue = "1")int page,
+                                     @RequestParam(name ="size", defaultValue = "5")int size,
+                                     Model model){
+
+        PageDto<CategoriesDto> pageDto = categoriesService.getCategoriesForList(page,size);
+        model.addAttribute("pageDto",pageDto);
+        return "/categories/list";
+    }
+
     @PostMapping("/create")
     public String createCategory(@ModelAttribute CategoriesDto categoriesDto){
         categoriesService.createCategories(categoriesDto);
-        return "/categories/list";
+        return "redirect:/categories/create";
     }
+
+
+
+
 
 }

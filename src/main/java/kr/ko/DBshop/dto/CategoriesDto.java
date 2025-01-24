@@ -8,8 +8,8 @@ import lombok.Setter;
 @Setter
 public class CategoriesDto {
 
-    private Integer id;
+    private Integer categoryId;
     private String categoryName;
-    private String createAt;
+    private String createdAt;
 
 }
