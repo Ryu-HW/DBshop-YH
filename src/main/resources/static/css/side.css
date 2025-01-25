@@ -1,0 +1,28 @@
+.sidenav {
+    height: 100%;
+    width: 200px; /* 사이드 메뉴 너비 */
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: #7ab8f5;
+    padding-top: 20px;
+
+}
+
+.sidenav a {
+    padding: 10px 15px;
+    text-decoration: none;
+    font-size: 18px;
+    color: white;
+    display: block;
+}
+
+.sidenav a:hover {
+    background-color: #6a9bd2;
+}
+
+
+.content {
+    margin-left: 260px;
+    padding: 20px;
+}

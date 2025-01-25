@@ -13,6 +13,7 @@ public class CategoriesDto {
 
     private Integer categoryId;
 
+    //@Valid와 연계되는 어노테이션(for 필드)들
     @NotBlank(message = "카테고리 이름은 필수입니다.")
     @Pattern(regexp = "^[a-zA-Z가-힣][a-zA-Z0-9가-힣]*$",
             message = "카테고리 이름을 확인해주세요.")

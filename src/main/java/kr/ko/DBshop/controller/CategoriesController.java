@@ -39,7 +39,7 @@ public class CategoriesController {
     //@Valid 는, categoriesDto내의 유효성검사 어노테이션을 통한 결과값을 bindingResult에 삽입.
     public String createCategory(@Valid @ModelAttribute CategoriesDto categoriesDto, BindingResult bindingResult,Model model){
 
-        //에러의 필드와 메시지를 담을 Map생성
+        //에러의 필드와 메시지를 담을 Map생성, | Map사용하지 않고 에러메시지 유무만 사용함 |
         //Map<String, List<String>> errorMap = new HashMap<>();
 
         //에러가 있으면,
