@@ -16,8 +16,7 @@ public class CategoriesService {
 
     public void createCategories(CategoriesDto categoriesDto){
 
-
-        categoriesMapper.insertCategory(categoriesDto.getCategoryName());
+        categoriesMapper.insertCategory(categoriesDto);
     }
 
     public PageDto<CategoriesDto> getCategoriesForList(int page,int size){
@@ -27,6 +26,10 @@ public class CategoriesService {
         int numOfAllCategories = categoriesMapper.countAllCategories();
         PageDto<CategoriesDto> pageDto = new PageDto<>(page, size, numOfAllCategories, categoriesDto);
         return pageDto;
+    }
 
+    public void deleteCategoryById(int categoryId){
+        //리턴값을 int로 받고 있지만 값을 원하지 않는다면 void처럼 사용 가능
+        categoriesMapper.deleteCategoryById(categoryId);
     }
 }

@@ -9,24 +9,37 @@
             width: 500px;
             margin: 100px auto;
         }
+            td:last-child, th:last-child {
+            width: 200px;
+        }
+        .delBtn{
+            margin : 0;
+            padding : 1px 3px
+        }
     </style>
 </head>
 <body>
 <div class="custom-size" >
     <table class="table">
         <thead>
-        <tr>
+        <tr class="text-center">
             <th scope="col" class="text-primary">번호</th>
             <th scope="col" class="text-primary">카테고리</th>
+            <th scope="col" class="text-primary"></th>
             <th scope="col" class="text-primary">날짜</th>
 
         </tr>
         </thead>
         <tbody>
-        <tr th:each="category : ${pageDto.objects}">
+        <tr th:each="category : ${pageDto.objects}" class="text-center">
             <td th:text="${category.categoryId}">id</td>
             <td><a th:href="@{/post/show/{id}(id=${category.categoryId})}" th:text="${category.categoryName}">카테고리이름</a></td>
+            <td style="width : 70px">
+<!--                <button type="button" class="btn btn-light btn-sm delBtn" th:onclick="|window.location.href='/categories/delete/${category.categoryId}'|">삭제</button>-->
+                <button type="button" class="btn btn-light btn-sm delBtn" th:data-url="@{/categories/delete/{categoryId}(categoryId=${category.categoryId})}"  onclick="deleteCategory(event)">삭제</button>
+            </td>
             <td th:text="${category.createdAt}">날짜</td>
+
         </tr>
         </tbody>
     </table>
@@ -111,9 +124,10 @@
                     <span aria-hidden="true">&raquo;</span>
                 </a>
             </li>
-            <button type="button" class="btn btn-outline-primary btn-sm" id="createBtn" style="position: absolute; right: 3px;">글쓰기</button>
+            <button type="button" class="btn btn-outline-primary btn-sm" id="createBtn" style="position: absolute; right: 3px;" th:onclick="|window.location.href='/categories/create'|">카테고리 추가</button>
         </ul>
     </nav>
 </div>
 </body>
+<script src="/js/list.js"></script>
 </html>

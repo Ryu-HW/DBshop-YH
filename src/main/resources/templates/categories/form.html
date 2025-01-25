@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -9,19 +9,52 @@
             width: 500px;
             margin: 100px auto;
         }
+        #categoryInput{
+            width: 300px;
+        }
+        .warning{
+            display: none;
+            font-size: 12px;
+            height: 15px;
+            color: red;
+            margin: 5px 0 0 10px;
+            padding: 0;
+        }
+        .warning-border {
+            border: 2px solid rgba(255, 0, 0, 0.5); /* 빨간색 반투명 보더 */
+        }
     </style>
+    <!--
+    th:inline="javascript" 는 자바스크립트에서 Model객체로 받아온 정보를 사용할 수 있게 해줌,
+    [[${errorExist}]]는 받아온 객체 정보를 자바스크립트에서 사용할 수 있는 변수로 바꿔주는 th문법
+    -->
+    <script  th:inline="javascript">
+
+        window.onload = function() {
+            const errorExist = [[${errorExist}]];
+
+            if (errorExist) {
+                alert("카테고리 이름에 문제가 있습니다.");
+            }
+        }
+
+    </script>
 </head>
 <body>
+
 <div id="categoryFormContainer">
-    <form action="/categories/create" method="POST">
+    <form id="categoryInputForm" action="/categories/create" method="POST">
         <div class="mb-3">
             <label for="categoryInput" class="form-label">카테고리 이름</label>
-            <input type="text" class="form-control" name="categoryName" id="categoryInput" placeholder="카테고리를 입력해주세요.">
-            <p class="warning"></p>
+            <input type="text" class="form-control " name="categoryName" id="categoryInput" placeholder="카테고리를 입력해주세요.">
+            <p class="warning" id="startWithSpaceError">* 빈문자열로 시작할 수 없습니다.</p>
+            <p class="warning" id="specialCharError">* 특수문자를 사용할 수 없습니다.</p>
+
         </div>
         <input class="btn btn-primary" type="submit" value="작성">
     </form>
 </div>
 
 </body>
+<script src="/js/validation.js"></script>
 </html>
