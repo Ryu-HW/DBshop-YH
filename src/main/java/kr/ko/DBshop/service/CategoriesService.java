@@ -15,4 +15,6 @@ public class CategoriesService {
 
         categoriesMapper.insertProduct(categoriesDto.getCategoryName());
     }
+
+
 }

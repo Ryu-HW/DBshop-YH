@@ -44,13 +44,34 @@ public class UsersController {
         return "/users/signup";
     }
 
+    @PostMapping("/update/profile")
+    public String updateUser(@ModelAttribute UsersDto usersDto){
+        usersService.updateUser(usersDto);
+        return "redirect:/";
+    }
+
+
+    @GetMapping("/my/page")
+    public String mypage(){
+
+        return "/users/myinfo";
+    }
+
+    @GetMapping("/delete/profile")
+    public String delprofile(){
+
+        String email = SecurityContextHolder.getContext().getAuthentication().getName();
+        usersService.deleteUserByEmail(email);
+        return "redirect:/";
+    }
+
     @PostMapping("/signup")
     public String signupForm(@ModelAttribute UsersDto userDto){
         
         //받은 UserDto정보를 받아 서비스로 토스
         usersService.signUp(userDto);
 
-        return "redirect:/users/login";
+        return "redirect:/login";
     }
 
     @GetMapping("/my/info")

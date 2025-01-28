@@ -26,8 +26,11 @@
 <body>
 
 <div class="form-container">
-  <h3 class="text-center text-success mb-4">로그인</h3>
 
+  <h3 class="text-center text-success mb-4">로그인</h3>
+  <div th:if="${session.error}">
+    <p th:text="${session.error}" style="color: red;"></p>
+  </div>
   <form action="/login" method="POST">
     <!-- 이메일 입력 필드 -->
     <div class="form-group">

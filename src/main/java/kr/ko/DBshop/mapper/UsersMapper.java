@@ -14,5 +14,7 @@ public interface UsersMapper {
     public String selectUserEmailByEmail(String email);
     public UsersDto selectUserByEmail(String username);
     public List<Role> selectRolesByUserId(Integer id);
+    public void updateUser(UsersDto userDto);
+    public void deleteUserByEmail(String email);
 
 }

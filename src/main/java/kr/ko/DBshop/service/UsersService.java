@@ -37,4 +37,15 @@ public class UsersService {
 
     }
 
+    public UsersDto getUserByEmail(String email){
+        return usersMapper.selectUserByEmail(email);
+    }
+
+    public void updateUser(UsersDto usersDto){
+        usersMapper.updateUser(usersDto);
+    }
+
+    public void deleteUserByEmail(String email){
+        usersMapper.deleteUserByEmail(email);
+    }
 }

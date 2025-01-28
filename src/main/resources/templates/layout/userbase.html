@@ -19,7 +19,23 @@
     <!-- Header Component -->
     <header class="header">
         <span class="site-name">DBshop</span>
-        <button class="btn btn-outline-light btn login-btn" onclick="window.location.href='/login'">Login</button>
+        <!-- userInfo가 없으면 Login 버튼, 있으면 마이페이지, 장바구니, 로그아웃 버튼을 보여줌 -->
+        <div th:if="${userInfo == null}">
+            <!-- 비로그인 상태: Login 버튼 -->
+            <button class="btn btn-outline-light btn login-btn" onclick="window.location.href='/login'">Login</button>
+        </div>
+
+        <div th:if="${userInfo != null}">
+            <!-- 로그인 상태: My Page, Cart, Logout 링크 -->
+            <div style="float: right;">
+                <a href="/my/page" class="btn btn-outline-light btn" style="margin-right: 10px;">My Page</a>
+                <a href="/my/cart" class="btn btn-outline-light btn" style="margin-right: 10px;">Cart</a>
+                <form action="/logout" method="post" style="display: inline;">
+                    <input type="hidden" name="_csrf" th:value="${_csrf.token}">
+                    <button type="submit" class="btn btn-outline-light btn">Logout</button>
+                </form>
+            </div>
+        </div>
     </header>
 
 
@@ -32,9 +48,10 @@
 
 
 
-        <main layout:fragment="content">
+        <main class="main scrollBar" layout:fragment="content">
             <p>메인콘텐츠</p>
         </main>
+
     </div>
 </div>
 

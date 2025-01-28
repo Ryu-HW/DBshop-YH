@@ -39,4 +39,18 @@
     <select id="selectUserByEmail" resultType="kr.ko.DBshop.dto.UsersDto">
         SELECT * FROM users where email = #{username}
     </select>
+
+    <update id="updateUser">
+        UPDATE users
+        SET
+        name = #{name},
+        phone = #{phone}
+        WHERE email = #{email}
+    </update>
+
+    <delete id="deleteUserByEmail">
+        DELETE FROM users
+        WHERE email = #{email}
+    </delete>
+
 </mapper>
