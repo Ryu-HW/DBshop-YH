@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>이미 로그인된 상태</title>
+  <!-- Bootstrap CSS 연결 -->
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    .form-container {
+        width: 500px;
+        margin: 50px auto;
+        padding: 30px;
+        background-color: #f8f9fa;
+        border-radius: 8px;
+    }
+    .btn-success {
+        width: 100%; /* 버튼을 전체 너비로 */
+    }
+    .form-control:focus {
+        border: 2px solid rgba(40, 167, 69, 0.2);
+        box-shadow: 0 0 5px rgba(40, 167, 69, 0.5);
+    }
+  </style>
+</head>
+<body>
+
+<div class="form-container">
+  <h3 class="text-center text-success mb-4">이미 로그인된 상태입니다</h3>
+
+  <div class="alert alert-success text-center">
+    <p>현재 이미 로그인된 상태입니다.</p>
+    <p>로그인한 사용자는 다시 로그인할 필요가 없습니다.</p>
+  </div>
+
+  <!-- 홈 페이지로 가는 버튼 -->
+  <div class="text-center">
+    <a href="/" class="btn btn-success">홈으로 이동</a>
+  </div>
+</div>
+
+<!-- Bootstrap JS, Popper.js, jQuery 연결 -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

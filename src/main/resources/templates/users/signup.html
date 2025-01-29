@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>회원가입 페이지</title>
+  <!-- Bootstrap CSS 연결 -->
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    .form-container {
+        width: 500px;
+        margin: 50px auto;
+        padding: 30px;
+        background-color: #f8f9fa;
+        border-radius: 8px;
+    }
+    .btn-success {
+        width: 100%; /* 버튼을 전체 너비로 */
+    }
+    .form-control:focus {
+        border: 2px solid rgba(40, 167, 69, 0.2);
+        box-shadow: 0 0 5px rgba(40, 167, 69, 0.5);
+    }
+  </style>
+</head>
+<body>
+
+<div class="form-container">
+  <h3 class="text-center text-success mb-4">회원가입</h3>
+
+  <form action="/signup" method="POST">
+    <!-- 이메일 입력 필드 -->
+    <div class="form-group">
+      <label for="email" class="text-success">이메일</label>
+      <input type="email" class="form-control" id="email" name="email" placeholder="이메일을 입력하세요" required>
+    </div>
+
+    <!-- 비밀번호 입력 필드 -->
+    <div class="form-group">
+      <label for="password" class="text-success">비밀번호</label>
+      <input type="password" class="form-control" id="password" name="password" placeholder="비밀번호를 입력하세요" required>
+      <input type="hidden" name="_csrf" th:value="${_csrf.token}">
+    </div>
+
+    <!-- 이름 입력 필드 -->
+    <div class="form-group">
+      <label for="name" class="text-success">이름</label>
+      <input type="text" class="form-control" id="name" name="name" placeholder="이름을 입력하세요" required>
+    </div>
+
+    <!-- 전화번호 입력 필드 -->
+    <div class="form-group">
+      <label for="phone" class="text-success">전화번호</label>
+      <input type="tel" class="form-control" id="phone" name="phone" placeholder="전화번호를 입력하세요" required>
+    </div>
+
+    <!-- 회원가입 버튼 -->
+    <button type="submit" class="btn btn-success">회원가입</button>
+  </form>
+</div>
+
+<!-- Bootstrap JS, Popper.js, jQuery 연결 -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

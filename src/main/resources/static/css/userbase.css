@@ -1,0 +1,72 @@
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    width: 700px;
+    height: 600px;
+    margin:100px auto;
+    border: 1px solid ffffff;
+    border-radius: 15px;
+    overflow:y-auto;
+
+}
+.header {
+    background-color: #449758;
+    color: #e4ffeb;
+    padding: 1rem;
+    text-align: center;
+    border-bottom:5px solid #ffffff;
+    position: relative;
+    height: 80px;
+}
+.content {
+    display: flex;
+    background-color: #d4d4d4;
+
+
+}
+.sidebar {
+    width: 200px;
+    background-color: #449758;
+    padding: 1rem;
+    border-right: 5px solid #ffffff;
+    text-align: center;
+
+}
+.main {
+    flex-grow: 1;
+    padding: 1rem;
+    height: 520px;
+    overflow-y:auto;
+}
+.site-name{
+    font-size: 30px;
+    position: absolute;
+    left: 40px;
+}
+.list-unstyled>li>a{
+    list-style: none;
+    color: white;
+}
+.list-unstyled>li{
+    height: 30px;
+}
+.login-btn{
+    position: absolute;
+    right: 23px;
+    top: 20px;
+}
+/* 아래의 모든 코드는 영역::코드로 사용 */
+.scrollBar::-webkit-scrollbar {
+    width: 10px;  /* 스크롤바의 너비 */
+}
+
+.scrollBar::-webkit-scrollbar-thumb {
+    height: 20%; /* 스크롤바의 길이 */
+    background: #a3a3a3; /* 스크롤바의 색상 */
+
+    border-radius: 10px;
+}
+
+.scrollBar::-webkit-scrollbar-track {
+    background: #d5d4d4;  /*스크롤바 뒷 배경 색상*/
+}
