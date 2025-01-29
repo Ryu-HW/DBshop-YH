@@ -8,6 +8,10 @@
         insert into categories (category_name) values (#{categoryName})
     </insert>
 
+    <select id="selectAllCategories" resultType="kr.ko.DBshop.dto.CategoriesDto">
+        select * from categories
+    </select>
+
     <select id="selectCategoriesForList" resultType="kr.ko.DBshop.dto.CategoriesDto">
         select * from categories
         order by category_id DESC

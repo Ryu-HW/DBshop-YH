@@ -1,10 +1,13 @@
 package kr.ko.DBshop.service;
 
+import kr.ko.DBshop.dto.Role;
 import kr.ko.DBshop.dto.UsersDto;
 import kr.ko.DBshop.mapper.UsersMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class UsersService {
@@ -47,5 +50,9 @@ public class UsersService {
 
     public void deleteUserByEmail(String email){
         usersMapper.deleteUserByEmail(email);
+    }
+
+    public List<Role> getRolesByUserId(Integer id){
+        return usersMapper.selectRolesByUserId(id);
     }
 }

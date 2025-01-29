@@ -25,9 +25,16 @@
             <button class="btn btn-outline-light btn login-btn" onclick="window.location.href='/login'">Login</button>
         </div>
 
+
+
         <div th:if="${userInfo != null}">
             <!-- 로그인 상태: My Page, Cart, Logout 링크 -->
             <div style="float: right;">
+                <th:block th:each="role : ${roles}">
+                    <th:block th:if="${role.role eq 'ROLE_ADMIN'}">
+                        <a href="/admin" class="btn btn-outline-warning btn" style="margin-right: 10px;">ADMIN PAGE</a>
+                    </th:block>
+                </th:block>
                 <a href="/my/page" class="btn btn-outline-light btn" style="margin-right: 10px;">My Page</a>
                 <a href="/my/cart" class="btn btn-outline-light btn" style="margin-right: 10px;">Cart</a>
                 <form action="/logout" method="post" style="display: inline;">

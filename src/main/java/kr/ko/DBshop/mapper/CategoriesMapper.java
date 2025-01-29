@@ -16,4 +16,6 @@ public interface CategoriesMapper {
 
     //delete문의 return을 int로 하면 삭제된 데이터의 개수를 알 수 있음.
     public int deleteCategoryById(int categoryId);
+
+    public List<CategoriesDto> selectAllCategories();
 }

@@ -2,6 +2,7 @@ package kr.ko.DBshop.service;
 
 import kr.ko.DBshop.dto.CategoriesDto;
 import kr.ko.DBshop.dto.PageDto;
+import kr.ko.DBshop.dto.Role;
 import kr.ko.DBshop.mapper.CategoriesMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -32,4 +33,10 @@ public class CategoriesService {
         //리턴값을 int로 받고 있지만 값을 원하지 않는다면 void처럼 사용 가능
         categoriesMapper.deleteCategoryById(categoryId);
     }
+
+    public List<CategoriesDto> getAllCategories(){
+        return categoriesMapper.selectAllCategories();
+    }
+
+
 }

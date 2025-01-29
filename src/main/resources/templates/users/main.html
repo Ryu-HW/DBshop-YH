@@ -3,7 +3,7 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layout/userbase}">
 <head>
-    <title>카테고리 생성</title>
+    <title>메인페이지</title>
     <th:block layout:fragment="css"></th:block>
 </head>
 <body>
@@ -11,50 +11,23 @@
     <p>DBshop입니다.</p>
     <section id="products" class="mt-4">
         <h2>오늘의 상품</h2>
-        <div class="row g-4">
-            <div class="col-12">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">상품이름</h5>
-                        <p class="card-text">가격</p>
-                        <button class="btn btn-success">Add to Cart</button>
+        <th:block th:each="product : ${products}">
+            <div class="row g-4">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <form action="/my/add-item" method="post">
+                                    <h5 class="card-title" th:text="${product.productName}">이름</h5>
+                                    <p class="card-text" th:text="${product.price}+'원'">가격</p>
+                                <button class="btn btn-success">Add to Cart</button>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="row g-4">
-            <div class="col-12">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">상품이름</h5>
-                        <p class="card-text">가격</p>
-                        <button class="btn btn-success">Add to Cart</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row g-4">
-            <div class="col-12">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">상품이름</h5>
-                        <p class="card-text">가격</p>
-                        <button class="btn btn-success">Add to Cart</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row g-4">
-            <div class="col-12">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">상품이름</h5>
-                        <p class="card-text">가격</p>
-                        <button class="btn btn-success">Add to Cart</button>
-                    </div>
-                </div>
-            </div>
-        </div>
+        </th:block>
+
+
     </section>
 </main>
 
