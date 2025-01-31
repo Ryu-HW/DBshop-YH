@@ -16,10 +16,12 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-body">
-                            <form action="/my/add-item" method="post">
-                                    <h5 class="card-title" th:text="${product.productName}">이름</h5>
-                                    <p class="card-text" th:text="${product.price}+'원'">가격</p>
-                                <button class="btn btn-success">Add to Cart</button>
+                            <form action="/my/cart" method="post">
+                                <input type="hidden" name="productId" th:value="${product.productId}">
+                                <h5 class="card-title" th:text="${product.productName}">이름</h5>
+                                <p class="card-text" th:text="${product.price}+'원'">가격</p>
+                                <input type="hidden" name="_csrf" th:value="${_csrf.token}">
+                                <button type="submit" class="btn btn-success">Add to Cart</button>
                             </form>
                         </div>
                     </div>

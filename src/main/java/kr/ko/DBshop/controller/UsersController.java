@@ -1,20 +1,22 @@
 package kr.ko.DBshop.controller;
 
+import kr.ko.DBshop.dto.CartItemProductDto;
 import kr.ko.DBshop.dto.UsersDto;
+import kr.ko.DBshop.service.CartItemsService;
 import kr.ko.DBshop.service.CategoriesService;
 import kr.ko.DBshop.service.ProductsService;
 import kr.ko.DBshop.service.UsersService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Controller
-@RequestMapping
 public class UsersController {
 
     @Autowired
@@ -25,6 +27,9 @@ public class UsersController {
 
     @Autowired
     ProductsService productsService;
+
+    @Autowired
+    CartItemsService cartItemsService;
 
     @GetMapping("/")
     public String mainPage(Model model){
@@ -96,5 +101,46 @@ public class UsersController {
         return "/users/myinfo";
     }
 
+
+//    @PostMapping("/my/cart")
+//    public ResponseEntity<Void> addMyCart(@RequestParam("productId") Integer productId){
+//        String email = SecurityContextHolder.getContext().getAuthentication().getName();
+//        Integer userId = usersService.getUserByEmail(email).getUserId();
+//
+//        try {
+//            // 장바구니에 아이템 추가 또는 수량 증가
+//            cartItemsService.addCartItemByUserIdAndProductId(userId, productId);
+//
+//            // 성공적으로 처리되었을 경우
+//
+//            return ResponseEntity.ok().build();
+//        } catch (Exception e) {
+//            // 예외 발생 시 실패 처리
+//            return ResponseEntity.ok().build();
+//        }
+//
+//    }
+
+    @PostMapping("/my/cart")
+    public String addMyCart(@RequestParam("productId") Integer productId){
+        String email = SecurityContextHolder.getContext().getAuthentication().getName();
+        Integer userId = usersService.getUserByEmail(email).getUserId();
+
+        cartItemsService.addCartItemByUserIdAndProductId(userId, productId);
+
+        return "redirect:/my/cart";
+
+    }
+
+    @GetMapping("/my/cart")
+    public String showMyCart(Model model){
+
+        String email = SecurityContextHolder.getContext().getAuthentication().getName();
+        Integer userId = usersService.getUserByEmail(email).getUserId();
+        List<CartItemProductDto> cartItems = cartItemsService.getCartItemsWithProductByUserId(userId);
+        model.addAttribute("cartItems",cartItems);
+
+        return "/users/mycart";
+    }
 
 }
