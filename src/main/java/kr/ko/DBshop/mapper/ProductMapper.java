@@ -9,4 +9,6 @@ import java.util.List;
 public interface ProductMapper {
 
     public List<ProductsDto> selectAllProducts();
+    public ProductsDto selectProductByProductName(String ProductName);
+
 }

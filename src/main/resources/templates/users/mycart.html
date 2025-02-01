@@ -18,29 +18,31 @@
         <div class="row">
           <!-- 상품 리스트 -->
           <th:block th:each="item : ${cartItems}">
-            <div class="col-12 mb-3">
-              <div class="d-flex justify-content-between align-items-center border p-2">
+            <div class="col-12 mb-3" th:id="'cartItem-' + ${item.productId}">
+              <div class="d-flex justify-content-between align-items-center bg-white p-2">
                 <div class="d-flex flex-column flex-grow-1">
                   <span th:text="${item.productName}" class="h6 mb-1">상품명</span>
-                  <span th:text="'가격: ' + ${item.price} + '원'" class="mb-1">가격</span>
+                  <span th:text="'가격: ' + ${item.price} + '원'" class="mb-1 item-price">가격</span>
                 </div>
 
                 <!-- 수량 조정 -->
                 <div class="d-flex align-items-center">
-                  <button type="button" class="btn btn-outline-secondary btn-sm me-2" id="decreaseBtn" data-action="decrease">-</button>
-                  <input type="number" id="quantityInput" th:value="${item.quantity}" min="1" class="form-control text-center" style="width: 40px;" readonly>
-                  <button type="button" class="btn btn-outline-secondary btn-sm ms-2" id="increaseBtn" data-action="increase">+</button>
+                  <button type="button" class="btn btn-outline-secondary btn-sm me-2" id="decreaseBtn" data-action="decrease" th:data-product-id="${item.productId}" style="width: 30px; height: 30px; line-height: 20px;">-</button>
+                  <input type="number" id="quantityInput" th:value="${item.quantity}" min="1" class="text-center" style="width: 40px;" readonly>
+                  <input type="hidden" class="item-value" th:value="${item.price}">
+                  <button type="button" class="btn btn-outline-secondary btn-sm ms-2" id="increaseBtn" data-action="increase" th:data-product-id="${item.productId}" style="width: 30px; height: 30px; line-height: 20px;">+</button>
                 </div>
 
                 <!-- 상품의 총액 -->
-                <div class="ms-3">
-                  <span th:text="${item.price * item.quantity} + '원'">총액</span>
+                <div class="ms-3 total-info">
+                  <input type="hidden" class="item-total-value" th:value="${item.price * item.quantity}" />
+                  <span th:text="${item.price * item.quantity} + '원'" class="item-total">총액</span>
                 </div>
 
                 <form action="/cart/remove" method="post" class="ms-3">
                   <input type="hidden" name="productId" th:value="${item.productId}">
                   <input type="hidden" name="_csrf" th:value="${_csrf.token}">
-                  <button type="submit" class="btn btn-danger btn-sm">삭제</button>
+                  <button type="submit" id="deleteProductBtn" class="btn btn-danger btn-sm">삭제</button>
                 </form>
               </div>
             </div>
@@ -48,15 +50,12 @@
 
           <!-- 총액 -->
           <div class="col-12 d-flex justify-content-end mt-3">
-            <h6 th:text="'총액: ' + ${totalPrice} + '원'">총액</h6>
+            <h6 id="totalPrice" th:text="'총액: ' + ${totalPrice} + '원'">총액</h6>
           </div>
 
-          <!-- 장바구니 비우기 및 결제하기 버튼 -->
-          <div class="col-12 d-flex justify-content-between mt-3">
-            <form action="/cart/clear" method="post" class="flex-grow-1">
-              <button type="submit" class="btn btn-warning btn-sm">장바구니 비우기</button>
-            </form>
-            <a href="/checkout" class="btn btn-success btn-sm ms-3">결제하기</a>
+          <!-- 결제하기 버튼 -->
+          <div class="col-12 d-flex justify-content-end mt-3">
+            <a href="/my/checkout" class="btn btn-success btn-sm ms-3">결제하기</a>
           </div>
         </div>
       </div>
@@ -66,6 +65,7 @@
 
 </body>
 <th:block layout:fragment="js">
+  <script th:src="@{/js/mycart.js}"></script>
 </th:block>
 
 

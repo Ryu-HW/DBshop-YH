@@ -10,7 +10,9 @@ import java.util.List;
 public interface CartItemsMapper {
 
     public CartItemsDto selectCartItemsByUserIdAndProductId(int userId,int productId);
-    public void updateCartItemQuantity(int userId,int productId,int quantity);
+    public boolean updateCartItemQuantity(int userId,int productId,int quantity);
     public void insertCartItem(int userId,int productId);
     public List<CartItemProductDto> selectCartItemsWithProductByUserId(int userId);
+    public void deleteCartItem(int userId,int productId);
+    public void deleteCartItemsByUserId(int userId);
 }

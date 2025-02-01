@@ -18,6 +18,12 @@
         AND product_id = #{productId};
     </update>
 
+    <delete id="deleteCartItem">
+        DELETE FROM cart_items
+        WHERE user_id = #{userId}
+        AND product_id = #{productId};
+    </delete>
+
     <insert id="insertCartItem">
         INSERT INTO cart_items (user_id, product_id, quantity)
         VALUES (#{userId}, #{productId}, 1);
@@ -34,5 +40,10 @@
         JOIN products p ON ci.product_id = p.product_id
         WHERE ci.user_id = #{userId}
     </select>
+
+    <delete id="deleteCartItemsByUserId">
+        DELETE FROM cart_items
+        WHERE user_id = #{userId}
+    </delete>
 
 </mapper>

@@ -1,11 +1,10 @@
 package kr.ko.DBshop.controller;
 
 import kr.ko.DBshop.dto.CartItemProductDto;
+import kr.ko.DBshop.dto.OrderItemsDto;
+import kr.ko.DBshop.dto.OrdersDto;
 import kr.ko.DBshop.dto.UsersDto;
-import kr.ko.DBshop.service.CartItemsService;
-import kr.ko.DBshop.service.CategoriesService;
-import kr.ko.DBshop.service.ProductsService;
-import kr.ko.DBshop.service.UsersService;
+import kr.ko.DBshop.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -30,6 +29,12 @@ public class UsersController {
 
     @Autowired
     CartItemsService cartItemsService;
+
+    @Autowired
+    OrderItemsService orderItemsService;
+
+    @Autowired
+    OrdersService ordersService;
 
     @GetMapping("/")
     public String mainPage(Model model){
@@ -102,25 +107,6 @@ public class UsersController {
     }
 
 
-//    @PostMapping("/my/cart")
-//    public ResponseEntity<Void> addMyCart(@RequestParam("productId") Integer productId){
-//        String email = SecurityContextHolder.getContext().getAuthentication().getName();
-//        Integer userId = usersService.getUserByEmail(email).getUserId();
-//
-//        try {
-//            // 장바구니에 아이템 추가 또는 수량 증가
-//            cartItemsService.addCartItemByUserIdAndProductId(userId, productId);
-//
-//            // 성공적으로 처리되었을 경우
-//
-//            return ResponseEntity.ok().build();
-//        } catch (Exception e) {
-//            // 예외 발생 시 실패 처리
-//            return ResponseEntity.ok().build();
-//        }
-//
-//    }
-
     @PostMapping("/my/cart")
     public String addMyCart(@RequestParam("productId") Integer productId){
         String email = SecurityContextHolder.getContext().getAuthentication().getName();
@@ -143,4 +129,45 @@ public class UsersController {
         return "/users/mycart";
     }
 
+    @GetMapping("/my/checkout")
+    public String chechout(Model model){
+
+        String email = SecurityContextHolder.getContext().getAuthentication().getName();
+        Integer userId = usersService.getUserByEmail(email).getUserId();
+        List<CartItemProductDto> cartItems = cartItemsService.getCartItemsWithProductByUserId(userId);
+
+        long totalAmount = 0;
+
+        for (CartItemProductDto item : cartItems) {
+            totalAmount += (long) (item.getPrice()) * item.getQuantity();
+        }
+
+        model.addAttribute("totalPrice", totalAmount);
+        model.addAttribute("cartItems",cartItems);
+
+        return "/users/checkout";
+    }
+
+    @PostMapping("/my/process-payment")
+    public String payment(@RequestParam List<String> productNames,
+                               @RequestParam List<Integer> quantities,
+                               @RequestParam String totalPrice,
+                               @RequestParam String address){
+
+        long totalAmount = Long.parseLong(totalPrice);
+
+        String email = SecurityContextHolder.getContext().getAuthentication().getName();
+        Integer userId = usersService.getUserByEmail(email).getUserId();
+
+        OrdersDto ordersDto = new OrdersDto(userId,"배송 준비 중", totalAmount,address);
+
+
+        ordersService.createOrder(ordersDto);
+
+        orderItemsService.createOrderItem(ordersDto.getOrderId(),productNames,quantities);
+
+        cartItemsService.deleteCartItemByUserId(userId);
+
+        return "/users/payment-success";
+    }
 }

@@ -12,7 +12,7 @@ public class ProductsDto {
     private Integer productId;
     private Integer categoryId;
     private String productName;
-    private BigDecimal price;
+    private long price;
     private int stockQuantity;
     private String description;
     private String createdAt;
