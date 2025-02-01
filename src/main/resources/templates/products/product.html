@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/userbase}">
+<head>
+  <title>상품목록</title>
+  <th:block layout:fragment="css">
+    <style>
+      .item-list-container {
+        width: 450px;
+        max-width: 100%;
+        margin: 0 auto;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 10px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        background-color:white;
+      }
+
+      .item-row {
+        display: flex;
+        justify-content: space-between;
+        padding: 10px 0;
+        border-bottom: 1px solid #ddd;
+      }
+
+      .item-row:last-child {
+        border-bottom: none;
+      }
+
+      .item-label {
+        font-weight: bold;
+      }
+
+      .description {
+        font-size: 0.9em;
+        color: #555;
+        margin-top: 5px;
+      }
+
+      .stock-info {
+        font-size: 0.9em;
+        color: green;
+        font-weight: bold;
+      }
+
+      .add-to-cart-btn {
+        width: 100%;
+        margin-top: 10px;
+      }
+    </style>
+  </th:block>
+</head>
+<body>
+<main layout:fragment="content">
+  <div class="item-list-container">
+    <h5>상품 리스트</h5>
+
+    <!-- 아이템 리스트 반복 -->
+    <div th:each="product : ${productList}">
+      <div class="item-row">
+        <span class="item-label" th:text="${product.productName}">상품명</span>
+        <span th:text="${product.price} + '원'">가격</span>
+      </div>
+      <!-- 재고 수량 표시 -->
+      <div class="item-row stock-info">
+        <span th:text="'재고 수량: ' + ${product.stockQuantity}">재고 수량: 0</span>
+      </div>
+      <!-- 상품 설명 표시 -->
+      <div class="item-row description">
+        <span th:text="${product.description}">상품 설명</span>
+      </div>
+
+      <!-- Add to Cart 버튼 -->
+      <form action="/my/cart" method="post">
+        <input type="hidden" name="productId" th:value="${product.productId}" />
+        <input type="hidden" name="_csrf" th:value="${_csrf.token}">
+        <button type="submit" class="btn btn-success add-to-cart-btn">장바구니에 추가</button>
+      </form>
+
+      <hr>
+    </div>
+  </div>
+</main>
+
+</body>
+<th:block layout:fragment="js">
+</th:block>
+
+
+</html>

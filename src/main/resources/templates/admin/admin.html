@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/base}">
+
+<head>
+  <title>카테고리 생성</title>
+  <th:block layout:fragment="css">
+    <style>
+      #categoryFormContainer{
+          width: 500px;
+          position : absolute;
+          right : 0;
+      }
+      #categoryInput{
+          width: 300px;
+      }
+      .warning{
+          display: none;
+          font-size: 12px;
+          height: 15px;
+          color: red;
+          margin: 5px 0 0 10px;
+          padding: 0;
+      }
+      .warning-border {
+          border: 2px solid rgba(255, 0, 0, 0.5); /* 빨간색 반투명 보더 */
+      }
+      #categoryFormBox{
+          width: 300px;
+          margin: 50px auto;
+      }
+      #mainContainer{
+          height : 300px;
+      }
+
+      /* 중앙 정렬을 위한 스타일 추가 */
+      .welcome-message {
+          text-align: center;
+          font-size: 24px;
+          font-weight: bold;
+          margin-left:200px;
+          margin-top:90px;
+          color: #7ab8f5;
+      }
+    </style>
+  </th:block>
+</head>
+
+<body>
+
+<main layout:fragment="content">
+  <!-- 어서오세요 메시지 추가 -->
+  <div class="welcome-message">
+    어서오세요, <span th:text="${userInfo.name}"></span>님, admin 페이지입니다.
+  </div>
+</main>
+
+</body>
+
+<th:block layout:fragment="js">
+  <script src="/js/validation.js"></script>
+</th:block>
+
+</html>

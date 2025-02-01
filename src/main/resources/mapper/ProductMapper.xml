@@ -16,4 +16,14 @@
         select * from products where product_name = #{productName}
     </select>
 
+    <select id="selectAllProductsByCategoryId">
+        select * from products where category_id = #{categoryId}
+    </select>
+
+    <update id="updateQuantity">
+        UPDATE products
+        SET stock_quantity = #{stockQuantity}
+        WHERE product_id = #{productId}
+    </update>
+
 </mapper>

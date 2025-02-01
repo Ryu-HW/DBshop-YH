@@ -24,6 +24,8 @@ public class OrderItemsService {
             ProductsDto product = productMapper.selectProductByProductName(productNames.get(i));
             OrderItemsDto orderItemsDto = new OrderItemsDto(orderId,product.getProductId(),quantities.get(i),product.getPrice());
             orderItemsMapper.insertOrderItem(orderItemsDto);
+            int stockQuantity = product.getStockQuantity()-quantities.get(i);
+            productMapper.updateQuantity(product.getProductId(),stockQuantity);
         }
 
     }
